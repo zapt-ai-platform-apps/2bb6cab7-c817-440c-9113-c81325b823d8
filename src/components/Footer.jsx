@@ -23,7 +23,7 @@ export default function Footer() {
             </a>
             <span className="mx-2 text-gray-500">•</span>
             <a 
-              href="https://www.linkedin.com/in/hillelfuld/" 
+              href="https://www.linkedin.com/in/hilzfuld/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-gray-500 hover:text-gray-700"
