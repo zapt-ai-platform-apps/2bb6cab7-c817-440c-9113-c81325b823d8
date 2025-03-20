@@ -171,7 +171,7 @@ export const initialSuccessStories = [
       'Generated 45 media mentions across major tech publications',
       'Established partnerships with 3 leading research institutions'
     ],
-    testimonial: 'Hillel's network and strategic guidance transformed our business trajectory. His introductions to key investors and media opened doors that would have taken years to access on our own.',
+    testimonial: "Hillel's network and strategic guidance transformed our business trajectory. His introductions to key investors and media opened doors that would have taken years to access on our own.",
     testimonialAuthor: 'Dr. Sarah Chen, CEO of Quantum Computing Labs'
   },
   {
@@ -185,7 +185,7 @@ export const initialSuccessStories = [
       'Featured in 78 media publications, establishing thought leadership',
       'Expanded to international markets through strategic introductions'
     ],
-    testimonial: 'Working with Hillel fundamentally changed our company's trajectory. His ability to connect us with the right investors, partners, and media outlets accelerated our growth beyond what we thought possible.',
+    testimonial: "Working with Hillel fundamentally changed our company's trajectory. His ability to connect us with the right investors, partners, and media outlets accelerated our growth beyond what we thought possible.",
     testimonialAuthor: 'Maya Winston, Founder of EcoFarm Tech'
   }
 ];
