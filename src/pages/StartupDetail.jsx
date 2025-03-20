@@ -164,47 +164,6 @@ export default function StartupDetail() {
         <h2 className="text-xl font-semibold mb-4">Impact Metrics</h2>
         <div className="card">
           <MetricsComparisonChart startup={startup} />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            <div className="text-center">
-              <h3 className="text-sm font-medium text-gray-500">Funding Raised</h3>
-              <div className="mt-1 flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-900">
-                  {formatFunding(startup.metrics.before.fundingRaised)}
-                </span>
-                <span className="mx-2 text-gray-400">→</span>
-                <span className="text-lg font-semibold text-green-600">
-                  {formatFunding(startup.metrics.after.fundingRaised)}
-                </span>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <h3 className="text-sm font-medium text-gray-500">Users/Clients</h3>
-              <div className="mt-1 flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-900">
-                  {startup.metrics.before.userGrowth.toLocaleString()}
-                </span>
-                <span className="mx-2 text-gray-400">→</span>
-                <span className="text-lg font-semibold text-green-600">
-                  {startup.metrics.after.userGrowth.toLocaleString()}
-                </span>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <h3 className="text-sm font-medium text-gray-500">Media Mentions</h3>
-              <div className="mt-1 flex items-center justify-center">
-                <span className="text-lg font-semibold text-gray-900">
-                  {startup.metrics.before.mediaMentions}
-                </span>
-                <span className="mx-2 text-gray-400">→</span>
-                <span className="text-lg font-semibold text-green-600">
-                  {startup.metrics.after.mediaMentions}
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       
