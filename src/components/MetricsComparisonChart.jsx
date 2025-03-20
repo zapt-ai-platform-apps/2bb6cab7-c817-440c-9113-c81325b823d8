@@ -14,7 +14,9 @@ export default function MetricsComparisonChart({ startup }) {
   
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold mb-4">Impact Metrics Comparison</h3>
+      <p className="text-gray-600 italic mb-4">
+        These metrics compare the startup's performance before and after Hillel Fuld's involvement.
+      </p>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card p-4">
