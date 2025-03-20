@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpIcon } from '@heroicons/react/24/solid';
+import { ArrowUpIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { 
   FaBrain, 
   FaSeedling, 
@@ -13,7 +13,9 @@ import {
   FaCubes, 
   FaServer, 
   FaTruck, 
-  FaBuilding 
+  FaBuilding,
+  FaUsers,
+  FaNewspaper 
 } from 'react-icons/fa';
 
 export default function StartupCard({ startup }) {
@@ -49,13 +51,13 @@ export default function StartupCard({ startup }) {
   
   const getStageColor = (stage) => {
     switch (stage) {
-      case 'Pre-seed': return 'bg-gray-100 text-gray-800';
+      case 'Pre-seed': return 'bg-slate-100 text-slate-800';
       case 'Seed': return 'bg-emerald-100 text-emerald-800';
       case 'Series A': return 'bg-blue-100 text-blue-800';
       case 'Series B': return 'bg-purple-100 text-purple-800';
       case 'Series C': return 'bg-indigo-100 text-indigo-800';
       case 'Series D+': return 'bg-pink-100 text-pink-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-slate-100 text-slate-800';
     }
   };
   
@@ -93,33 +95,56 @@ export default function StartupCard({ startup }) {
         return <FaBuilding size={iconSize} color={iconColor} />;
     }
   };
+
+  // Determine health score based on growth metrics
+  const calculateHealthScore = () => {
+    const scores = [fundingGrowth, userGrowth, mediaMentionsGrowth];
+    const avgScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+    
+    if (avgScore > 100) return { color: 'text-emerald-500', label: 'Excellent' };
+    if (avgScore > 50) return { color: 'text-green-500', label: 'Good' };
+    if (avgScore > 20) return { color: 'text-yellow-500', label: 'Fair' };
+    if (avgScore > 0) return { color: 'text-orange-500', label: 'Needs Attention' };
+    return { color: 'text-red-500', label: 'Critical' };
+  };
+  
+  const healthScore = calculateHealthScore();
   
   return (
-    <div className="card hover:shadow-lg">
+    <div className="card card-hover group">
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center">
-          <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded">
+          <div className="w-12 h-12 flex items-center justify-center bg-slate-100 rounded-lg shadow-sm group-hover:bg-slate-50 transition-colors duration-300">
             {getIndustryIcon(startup.industry)}
           </div>
           <div className="ml-3">
-            <h3 className="text-lg font-semibold text-gray-900">{startup.name}</h3>
-            <p className="text-sm text-gray-500">{startup.founder}</p>
+            <h3 className="text-lg font-semibold text-slate-900 group-hover:text-primary-600 transition-colors duration-300">{startup.name}</h3>
+            <p className="text-sm text-slate-500">{startup.founder}</p>
           </div>
         </div>
-        <span className={`badge ${getStageColor(startup.stage)} whitespace-nowrap`}>
-          {startup.stage}
-        </span>
+        <div className="flex flex-col items-end">
+          <span className={`badge ${getStageColor(startup.stage)} whitespace-nowrap`}>
+            {startup.stage}
+          </span>
+          <div className={`mt-1 text-xs font-medium ${healthScore.color} flex items-center`}>
+            <ArrowTrendingUpIcon className="h-3 w-3 mr-1" />
+            {healthScore.label}
+          </div>
+        </div>
       </div>
       
-      <p className="text-sm text-gray-600 mb-4">{startup.industry}</p>
+      <p className="text-sm text-slate-600 mb-4">{startup.industry}</p>
       
-      <div className="space-y-2 mb-4">
+      <div className="space-y-3 mb-5">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Funding</span>
+          <span className="text-sm text-slate-500 flex items-center">
+            <FaMoneyBillWave className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+            Funding
+          </span>
           <div className="flex items-center">
-            <span className="text-sm font-medium">{formatFunding(startup.metrics.after.fundingRaised)}</span>
+            <span className="text-sm font-medium text-slate-700">{formatFunding(startup.metrics.after.fundingRaised)}</span>
             {fundingGrowth > 0 && (
-              <div className="ml-2 flex items-center text-green-600 text-xs">
+              <div className="ml-2 flex items-center text-emerald-500 text-xs">
                 <ArrowUpIcon className="h-3 w-3" />
                 <span>{fundingGrowth}%</span>
               </div>
@@ -128,11 +153,14 @@ export default function StartupCard({ startup }) {
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Users/Clients</span>
+          <span className="text-sm text-slate-500 flex items-center">
+            <FaUsers className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+            Users/Clients
+          </span>
           <div className="flex items-center">
-            <span className="text-sm font-medium">{startup.metrics.after.userGrowth.toLocaleString()}</span>
+            <span className="text-sm font-medium text-slate-700">{startup.metrics.after.userGrowth.toLocaleString()}</span>
             {userGrowth > 0 && (
-              <div className="ml-2 flex items-center text-green-600 text-xs">
+              <div className="ml-2 flex items-center text-emerald-500 text-xs">
                 <ArrowUpIcon className="h-3 w-3" />
                 <span>{userGrowth}%</span>
               </div>
@@ -141,11 +169,14 @@ export default function StartupCard({ startup }) {
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Media Mentions</span>
+          <span className="text-sm text-slate-500 flex items-center">
+            <FaNewspaper className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+            Media Mentions
+          </span>
           <div className="flex items-center">
-            <span className="text-sm font-medium">{startup.metrics.after.mediaMentions}</span>
+            <span className="text-sm font-medium text-slate-700">{startup.metrics.after.mediaMentions}</span>
             {mediaMentionsGrowth > 0 && (
-              <div className="ml-2 flex items-center text-green-600 text-xs">
+              <div className="ml-2 flex items-center text-emerald-500 text-xs">
                 <ArrowUpIcon className="h-3 w-3" />
                 <span>{mediaMentionsGrowth}%</span>
               </div>
@@ -154,9 +185,17 @@ export default function StartupCard({ startup }) {
         </div>
       </div>
       
+      {/* Progress bar */}
+      <div className="w-full h-1 bg-slate-100 rounded-full mb-5 overflow-hidden">
+        <div 
+          className="h-full bg-gradient-to-r from-primary-400 to-accent-400 rounded-full"
+          style={{ width: `${Math.min(100, Math.max(userGrowth, fundingGrowth, mediaMentionsGrowth))}%` }}
+        ></div>
+      </div>
+      
       <Link 
         to={`/startup/${startup.id}`}
-        className="block w-full btn btn-secondary text-center"
+        className="block w-full btn btn-primary text-center transition-transform hover:translate-y-[-1px] group-hover:shadow-md"
       >
         View Details
       </Link>

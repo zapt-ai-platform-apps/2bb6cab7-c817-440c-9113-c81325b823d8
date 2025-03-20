@@ -3,7 +3,8 @@ import {
   UserIcon, 
   BuildingOfficeIcon, 
   CalendarIcon, 
-  CheckCircleIcon 
+  CheckCircleIcon,
+  ChatBubbleBottomCenterTextIcon
 } from '@heroicons/react/24/outline';
 
 export default function ConnectionsList({ connections }) {
@@ -43,10 +44,12 @@ export default function ConnectionsList({ connections }) {
   
   if (connections.length === 0) {
     return (
-      <div className="text-center py-8 bg-white rounded-lg shadow-sm border border-gray-100">
-        <BuildingOfficeIcon className="mx-auto h-12 w-12 text-gray-400" />
-        <h3 className="mt-2 text-lg font-medium text-gray-900">No connections yet</h3>
-        <p className="mt-1 text-sm text-gray-500">
+      <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-slate-100">
+        <div className="bg-slate-50 rounded-full p-3 w-14 h-14 flex items-center justify-center mx-auto">
+          <BuildingOfficeIcon className="h-7 w-7 text-slate-400" />
+        </div>
+        <h3 className="mt-4 text-xl font-medium text-slate-900">No connections yet</h3>
+        <p className="mt-2 text-slate-500 max-w-md mx-auto">
           Start adding key connections and introductions to track their impact.
         </p>
       </div>
@@ -55,19 +58,26 @@ export default function ConnectionsList({ connections }) {
   
   return (
     <div className="space-y-4">
-      {sortedConnections.map((connection) => (
-        <div key={connection.id} className="card">
+      {sortedConnections.map((connection, index) => (
+        <div 
+          key={connection.id} 
+          className="card card-hover"
+        >
           <div className="flex flex-wrap justify-between items-start gap-4 mb-3">
             <div className="flex-1">
               <div className="flex items-center">
-                <UserIcon className="h-5 w-5 text-gray-400 mr-2" />
-                <h3 className="text-lg font-medium text-gray-900">
+                <div className="bg-slate-100 p-1.5 rounded-full mr-2">
+                  <UserIcon className="h-4 w-4 text-slate-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900">
                   {connection.contactName}
                 </h3>
               </div>
-              <div className="flex items-center mt-1 text-sm text-gray-600">
+              <div className="flex items-center mt-1 text-sm text-slate-600">
                 <span className="font-medium">{connection.contactPosition}</span>
-                <span className="mx-1">•</span>
+                {connection.contactPosition && connection.contactCompany && (
+                  <span className="mx-1">•</span>
+                )}
                 <span>{connection.contactCompany}</span>
               </div>
             </div>
@@ -82,23 +92,26 @@ export default function ConnectionsList({ connections }) {
             </div>
           </div>
           
-          <div className="flex items-center text-sm text-gray-500 mb-3">
+          <div className="flex items-center text-sm text-slate-500 mb-3">
             <CalendarIcon className="h-4 w-4 mr-1" />
             <span>{formatDate(connection.date)}</span>
           </div>
           
           <div className="mb-3">
-            <h4 className="text-sm font-medium text-gray-700 mb-1">Introduction</h4>
-            <p className="text-gray-600">{connection.description}</p>
+            <div className="flex items-center text-sm font-medium text-slate-700 mb-1">
+              <ChatBubbleBottomCenterTextIcon className="h-4 w-4 mr-1 text-slate-400" />
+              Introduction
+            </div>
+            <p className="text-slate-600 bg-slate-50 p-3 rounded-lg">{connection.description}</p>
           </div>
           
           {connection.outcome && (
-            <div className="pt-3 border-t border-gray-100">
-              <h4 className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                <CheckCircleIcon className="h-4 w-4 mr-1 text-green-500" />
+            <div className="pt-3 border-t border-slate-100">
+              <div className="flex items-center text-sm font-medium text-slate-700 mb-1">
+                <CheckCircleIcon className="h-4 w-4 mr-1 text-emerald-500" />
                 Outcome
-              </h4>
-              <p className="text-gray-600">{connection.outcome}</p>
+              </div>
+              <p className="text-slate-600 bg-emerald-50 p-3 rounded-lg">{connection.outcome}</p>
             </div>
           )}
         </div>

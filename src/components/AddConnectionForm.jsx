@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { useStartups } from '../context/StartupsContext';
+import { 
+  UserIcon, 
+  BuildingOfficeIcon, 
+  CalendarIcon, 
+  TagIcon 
+} from '@heroicons/react/24/outline';
 
 export default function AddConnectionForm({ startupId, onComplete }) {
   const { addConnection } = useStartups();
@@ -42,11 +48,15 @@ export default function AddConnectionForm({ startupId, onComplete }) {
   
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Add New Connection</h3>
+      <h3 className="text-lg font-semibold mb-4 text-primary-700 flex items-center">
+        <UserIcon className="h-5 w-5 mr-2 text-primary-500" />
+        Add New Connection
+      </h3>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+            <UserIcon className="h-4 w-4 mr-1 text-slate-400" />
             Contact Name *
           </label>
           <input
@@ -60,7 +70,7 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Contact Position
           </label>
           <input
@@ -73,7 +83,8 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+            <BuildingOfficeIcon className="h-4 w-4 mr-1 text-slate-400" />
             Company/Organization
           </label>
           <input
@@ -86,7 +97,8 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+            <CalendarIcon className="h-4 w-4 mr-1 text-slate-400" />
             Date
           </label>
           <input
@@ -99,7 +111,8 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+            <TagIcon className="h-4 w-4 mr-1 text-slate-400" />
             Type
           </label>
           <select
@@ -117,7 +130,7 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Status
           </label>
           <select
@@ -135,7 +148,7 @@ export default function AddConnectionForm({ startupId, onComplete }) {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-slate-700 mb-1">
           Description *
         </label>
         <textarea
@@ -149,7 +162,7 @@ export default function AddConnectionForm({ startupId, onComplete }) {
       </div>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-slate-700 mb-1">
           Outcome
         </label>
         <textarea
@@ -161,18 +174,18 @@ export default function AddConnectionForm({ startupId, onComplete }) {
         ></textarea>
       </div>
       
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-4 border-t border-slate-100">
         <button
           type="button"
           onClick={onComplete}
-          className="btn btn-secondary mr-2"
+          className="btn btn-secondary mr-2 cursor-pointer"
           disabled={isSubmitting}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-primary cursor-pointer"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

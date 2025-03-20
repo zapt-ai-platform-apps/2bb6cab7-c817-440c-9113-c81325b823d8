@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-export default function SingleMetricChart({ title, beforeValue, afterValue, formatValue }) {
+export default function SingleMetricChart({ title, beforeValue, afterValue, formatValue, color = 'rgb(16, 185, 129)' }) {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -20,6 +20,11 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
     
     const growthPercentage = calculateGrowthPercentage(beforeValue, afterValue);
     
+    // Create a gradient for the "after" bar
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, color);
+    gradient.addColorStop(1, color.replace('rgb', 'rgba').replace(')', ', 0.7)'));
+    
     chartInstance.current = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -30,20 +35,26 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
             data: [beforeValue],
             backgroundColor: 'rgba(107, 114, 128, 0.5)',
             borderColor: 'rgba(107, 114, 128, 1)',
-            borderWidth: 1
+            borderWidth: 1,
+            borderRadius: 4
           },
           {
             label: 'After',
             data: [afterValue],
-            backgroundColor: 'rgba(16, 185, 129, 0.5)',
-            borderColor: 'rgba(16, 185, 129, 1)',
-            borderWidth: 1
+            backgroundColor: gradient,
+            borderColor: color,
+            borderWidth: 1,
+            borderRadius: 4
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+          duration: 1500,
+          easing: 'easeOutQuart'
+        },
         scales: {
           x: {
             grid: {
@@ -52,6 +63,9 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
           },
           y: {
             beginAtZero: true,
+            grid: {
+              color: 'rgba(107, 114, 128, 0.1)',
+            },
             ticks: {
               callback: function(value) {
                 return formatValue ? formatValue(value) : value;
@@ -61,6 +75,14 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
         },
         plugins: {
           tooltip: {
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            titleColor: '#1f2937',
+            bodyColor: '#1f2937',
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderWidth: 1,
+            padding: 10,
+            cornerRadius: 8,
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
             callbacks: {
               label: function(context) {
                 let label = context.dataset.label || '';
@@ -86,6 +108,13 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
           },
           legend: {
             position: 'top',
+            labels: {
+              boxWidth: 12,
+              padding: 15,
+              font: {
+                size: 12
+              }
+            }
           },
           title: {
             display: true,
@@ -93,6 +122,9 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
             font: {
               size: 14,
               weight: 'bold'
+            },
+            padding: {
+              bottom: 15
             }
           }
         }
@@ -104,7 +136,7 @@ export default function SingleMetricChart({ title, beforeValue, afterValue, form
         chartInstance.current.destroy();
       }
     };
-  }, [title, beforeValue, afterValue, formatValue]);
+  }, [title, beforeValue, afterValue, formatValue, color]);
 
   return (
     <div className="w-full h-48">
