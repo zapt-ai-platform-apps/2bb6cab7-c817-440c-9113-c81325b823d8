@@ -106,7 +106,7 @@ export default function StartupCard({ startup }) {
             <p className="text-sm text-gray-500">{startup.founder}</p>
           </div>
         </div>
-        <span className={`badge ${getStageColor(startup.stage)}`}>
+        <span className={`badge ${getStageColor(startup.stage)} whitespace-nowrap`}>
           {startup.stage}
         </span>
       </div>

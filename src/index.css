@@ -42,7 +42,7 @@
   }
   
   .badge {
-    @apply px-2 py-1 text-xs rounded-full font-medium;
+    @apply px-2 py-1 text-xs rounded-full font-medium whitespace-nowrap;
   }
 }
 
