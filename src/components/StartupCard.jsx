@@ -1,6 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpIcon } from '@heroicons/react/24/solid';
+import { 
+  FaBrain, 
+  FaSeedling, 
+  FaShieldAlt, 
+  FaShoppingCart, 
+  FaGraduationCap, 
+  FaMoneyBillWave, 
+  FaHeartbeat, 
+  FaMicrochip, 
+  FaCubes, 
+  FaServer, 
+  FaTruck, 
+  FaBuilding 
+} from 'react-icons/fa';
 
 export default function StartupCard({ startup }) {
   // Calculate growth percentages
@@ -45,16 +59,48 @@ export default function StartupCard({ startup }) {
     }
   };
   
+  // Function to get icon based on industry
+  const getIndustryIcon = (industry) => {
+    const iconSize = 24;
+    const iconColor = "#4B5563"; // Gray-600
+    
+    switch (industry?.toLowerCase()) {
+      case 'artificial intelligence':
+        return <FaBrain size={iconSize} color={iconColor} />;
+      case 'agtech':
+        return <FaSeedling size={iconSize} color={iconColor} />;
+      case 'blockchain':
+        return <FaCubes size={iconSize} color={iconColor} />;
+      case 'cybersecurity':
+        return <FaShieldAlt size={iconSize} color={iconColor} />;
+      case 'e-commerce':
+        return <FaShoppingCart size={iconSize} color={iconColor} />;
+      case 'edtech':
+        return <FaGraduationCap size={iconSize} color={iconColor} />;
+      case 'fintech':
+        return <FaMoneyBillWave size={iconSize} color={iconColor} />;
+      case 'healthcare':
+        return <FaHeartbeat size={iconSize} color={iconColor} />;
+      case 'iot':
+        return <FaMicrochip size={iconSize} color={iconColor} />;
+      case 'quantum technology':
+        return <FaServer size={iconSize} color={iconColor} />;
+      case 'saas':
+        return <FaServer size={iconSize} color={iconColor} />;
+      case 'transportation':
+        return <FaTruck size={iconSize} color={iconColor} />;
+      default:
+        return <FaBuilding size={iconSize} color={iconColor} />;
+    }
+  };
+  
   return (
     <div className="card hover:shadow-lg">
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center">
-          <img 
-            src={startup.logo || `https://PLACEHOLDER`} 
-            alt={`${startup.name} logo`} 
-            className="w-12 h-12 rounded object-cover"
-            data-image-request={`${startup.industry} company logo, minimal and modern`}
-          />
+          <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded">
+            {getIndustryIcon(startup.industry)}
+          </div>
           <div className="ml-3">
             <h3 className="text-lg font-semibold text-gray-900">{startup.name}</h3>
             <p className="text-sm text-gray-500">{startup.founder}</p>

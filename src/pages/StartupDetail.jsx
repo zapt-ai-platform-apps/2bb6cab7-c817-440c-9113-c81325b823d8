@@ -10,6 +10,20 @@ import {
   PlusIcon, 
   DocumentTextIcon 
 } from '@heroicons/react/24/outline';
+import { 
+  FaBrain, 
+  FaSeedling, 
+  FaShieldAlt, 
+  FaShoppingCart, 
+  FaGraduationCap, 
+  FaMoneyBillWave, 
+  FaHeartbeat, 
+  FaMicrochip, 
+  FaCubes, 
+  FaServer, 
+  FaTruck, 
+  FaBuilding 
+} from 'react-icons/fa';
 
 export default function StartupDetail() {
   const { id } = useParams();
@@ -57,6 +71,41 @@ export default function StartupDetail() {
     return `$${amount}`;
   };
   
+  // Function to get icon based on industry
+  const getIndustryIcon = (industry) => {
+    const iconSize = 32;
+    const iconColor = "#4B5563"; // Gray-600
+    
+    switch (industry?.toLowerCase()) {
+      case 'artificial intelligence':
+        return <FaBrain size={iconSize} color={iconColor} />;
+      case 'agtech':
+        return <FaSeedling size={iconSize} color={iconColor} />;
+      case 'blockchain':
+        return <FaCubes size={iconSize} color={iconColor} />;
+      case 'cybersecurity':
+        return <FaShieldAlt size={iconSize} color={iconColor} />;
+      case 'e-commerce':
+        return <FaShoppingCart size={iconSize} color={iconColor} />;
+      case 'edtech':
+        return <FaGraduationCap size={iconSize} color={iconColor} />;
+      case 'fintech':
+        return <FaMoneyBillWave size={iconSize} color={iconColor} />;
+      case 'healthcare':
+        return <FaHeartbeat size={iconSize} color={iconColor} />;
+      case 'iot':
+        return <FaMicrochip size={iconSize} color={iconColor} />;
+      case 'quantum technology':
+        return <FaServer size={iconSize} color={iconColor} />;
+      case 'saas':
+        return <FaServer size={iconSize} color={iconColor} />;
+      case 'transportation':
+        return <FaTruck size={iconSize} color={iconColor} />;
+      default:
+        return <FaBuilding size={iconSize} color={iconColor} />;
+    }
+  };
+  
   return (
     <div>
       <button 
@@ -69,12 +118,9 @@ export default function StartupDetail() {
       
       <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8">
         <div className="flex items-center">
-          <img 
-            src={startup.logo || `https://PLACEHOLDER`} 
-            alt={`${startup.name} logo`} 
-            className="w-16 h-16 rounded object-cover" 
-            data-image-request={`${startup.industry} company logo, minimal and modern`}
-          />
+          <div className="w-16 h-16 flex items-center justify-center bg-gray-100 rounded">
+            {getIndustryIcon(startup.industry)}
+          </div>
           <div className="ml-4">
             <h1 className="text-2xl sm:text-3xl font-bold">{startup.name}</h1>
             <div className="flex flex-wrap gap-2 mt-1">
